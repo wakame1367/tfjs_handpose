@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <script src="lib/tfjs-core.js"></script>
+    <script src="lib/tfjs-converter.js"></script>
+    <script src="lib/handpose.js"></script>
+  </head>
+
+  <body>
+    <img id='video' src='20180514173606.jpg' style='position:absolute;' />
+  </body>
+  <script>
+    // Load the MediaPipe handpose model assets.
+    // const model = await handpose.load();
+    
+    // Pass in a video stream to the model to obtain 
+    // a prediction from the MediaPipe graph.
+    const video = document.getElementById("video");
+    // const hands = await model.estimateHands(video);
+    
+    // Each hand object contains a `landmarks` property,
+    // which is an array of 21 3-D landmarks.
+    // hands.forEach(hand => console.log(hand.landmarks));
+    // annotations -> indexFinger, middleFinger, palmBase, pinky, ringFinger, thumb
+    // [Array(3), ... * 4] -> [x, y, z]
+
+    handpose.load().then(function(net){
+        return net.estimateHands(video)
+    }).then(function(pose){
+        console.log(pose);
+    })
+  </script>
+</html>
